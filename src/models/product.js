@@ -16,28 +16,25 @@ export default {
     ],
   },
 
-  // subscriptions: {
-  //   setup({ dispatch, history }) {
-  //     // eslint-disable-line
-  //   },
-  // },
-
-  // effects: {
-  //   *fetch({ payload }, { call, put }) {
-  //     // eslint-disable-line
-  //     yield put({ type: "save" });
-  //   },
-  // },
-
   reducers: {
-    // 不能放arrow function
-    // updateList = (state, action) => {
-    //   return Object.assign({}, state, action.payload);
-    // }
-
     // 要用像constructor的寫法那樣
     updateList(state, action) {
-      return Object.assign({}, state, action.payload);
+      // const copiedState = Object.assign([], state);
+      // console.log("copiedState", copiedState);
+      // return copiedState.productList.push(action.payload);
+
+      let currentProductList = deepClone(state);
+      currentProductList.productList.push(action.payload);
     },
+    // 不能放arrow function:
+    // updateList = (state, action) => {...}
   },
+};
+
+//第6集 7:20
+const deepClone = (arr) => {
+  let obj = JSON.stringify(arr),
+    objClone = JSON.parse(obj);
+  console.log("objClone", objClone);
+  return objClone;
 };

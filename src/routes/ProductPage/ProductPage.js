@@ -3,13 +3,14 @@ import Product from "../../components/Product";
 import { connect } from "dva"; // 連接redux和app
 
 const IndexPage = (props) => {
-  //   console.log(props); // 可看到dispatch
-  const { productList } = props.productList;
+  console.log("ProductPage", props); // 可看到dispatch
+  const { productList } = props;
   return (
     <div>
       商品首頁
       <Product
-        title="食材"
+        // title="食材"
+        // props={props}
         productList={productList}
         dispatch={props.dispatch}
       />
