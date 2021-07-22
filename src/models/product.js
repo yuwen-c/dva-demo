@@ -19,12 +19,13 @@ export default {
   reducers: {
     // 要用像constructor的寫法那樣
     updateList(state, action) {
-      // const copiedState = Object.assign([], state);
-      // console.log("copiedState", copiedState);
-      // return copiedState.productList.push(action.payload);
+      const copiedState = Object.assign([], state);
+      // copiedState.productList.push(action.payload);
+return copiedState.concat(action.payload)
 
-      let currentProductList = deepClone(state);
-      currentProductList.productList.push(action.payload);
+      // let currentProductList = deepClone(state);
+      // currentProductList.productList.push(action.payload);
+      // return currentProductList
     },
     // 不能放arrow function:
     // updateList = (state, action) => {...}
@@ -32,9 +33,9 @@ export default {
 };
 
 //第6集 7:20
-const deepClone = (arr) => {
-  let obj = JSON.stringify(arr),
-    objClone = JSON.parse(obj);
-  console.log("objClone", objClone);
-  return objClone;
-};
+// const deepClone = (arr) => {
+//   let obj = JSON.stringify(arr),
+//     objClone = JSON.parse(obj);
+//   console.log("objClone", objClone);
+//   return objClone;
+// };
