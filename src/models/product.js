@@ -23,16 +23,13 @@ export default {
       // 2. 把action.payload的obj放到[]裡面
       // 3. 把[action.payload]放到 副本.productList 裡面
       // 4. return整個副本
-      // const copiedState = Object.assign([], state);
-      // console.log("copiedState before push", copiedState);
-      // copiedState.productList.push(action.payload);
-      // console.log("copiedState", copiedState);
-      // return copiedState;
+      const copiedState = Object.assign({}, state);
+      copiedState.productList.push(action.payload);
+      return copiedState;
 
-      let currentProductList = deepClone(state);
-      console.log("current in updateList function", currentProductList);
-      currentProductList.productList.push(action.payload);
-      return currentProductList;
+      // let currentProductList = deepClone(state);
+      // currentProductList.productList.push(action.payload);
+      // return currentProductList;
     },
     // 不能放arrow function:
     // updateList = (state, action) => {...}
@@ -40,10 +37,8 @@ export default {
 };
 
 //第6集 7:20
-const deepClone = (arr) => {
-  console.log("arr", arr);
-  let obj = JSON.stringify(arr),
-    objClone = JSON.parse(obj);
-  console.log("objClone function", objClone);
-  return objClone;
-};
+// const deepClone = (arr) => {
+//   let obj = JSON.stringify(arr),
+//     objClone = JSON.parse(obj);
+//   return objClone;
+// };
