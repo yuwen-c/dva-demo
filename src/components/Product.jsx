@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "antd";
 import { withRouter, Link, routerRedux } from "dva/router";
+import * as api from "../services/example";
 
 // << UI component >>
 const Product = ({ productList, dispatch, history }) => {
+  const [data, getData] = useState({});
+
+  // 呼叫API看看。不需要用fetch語法，直接用example那邊的API
+  // ComponentDidMount(){
+  //   api.getProduct()
+  //   .then(response => response.json())
+  //   .then(result => console.log(result))
+  // }
+
+  useEffect(() => {
+    api.getProduct().then((result) => getData(result.data));
+  }, []);
+
   // 在這邊定義按鈕要執行的function，可利用dispatch把資訊帶到redux
   const handleAdd = (event) => {
     const onion = { name: "洋蔥" };

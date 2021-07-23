@@ -1,4 +1,7 @@
-import fetch from 'dva/fetch';
+import fetch from "dva/fetch";
+import qs from "querystring"; // 老師import的
+
+// 第9集 01:00有放新檔
 
 function parseJSON(response) {
   return response.json();
@@ -14,6 +17,21 @@ function checkStatus(response) {
   throw error;
 }
 
+// 老師自己加的一個處理post的function
+function handleHeaders(options) {
+  const headers = (options.headers = options.headers ? options.headers : {});
+  const defaultHeaders = {
+    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+  };
+  options.headers = Object.assign({}, defaultHeaders, headers);
+
+  if (options.method === "post") {
+    var body = options.body ? options.body : {};
+    body = qs.stringify(body);
+    options.body = body;
+  }
+}
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -22,9 +40,16 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
+  // // get
+  // if (!options.method) {
+  //   url += `?${qs.stringify(options.params)}`;
+  // }
+  // // 處理頭部
+  // handleHeaders(options);
+
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
+    .then((data) => ({ data }))
+    .catch((err) => ({ err }));
 }
