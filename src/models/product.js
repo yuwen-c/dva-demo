@@ -1,6 +1,7 @@
 // 原本的redux需要分別編寫action, reducer等等檔案，且很難搞清楚之間的關係，
 // 加上又引入了saga，saga本身也有檔案要加，這樣一來就會有非常多檔案。
 // dva現在把他們全部包在model這裡：
+import * as api from "../services/example";
 
 export default {
   namespace: "product",
@@ -17,28 +18,37 @@ export default {
   },
 
   reducers: {
-    // 要用像constructor的寫法那樣
     updateList(state, action) {
-      // 1. 取到state的副本
-      // 2. 把action.payload的obj放到[]裡面
-      // 3. 把[action.payload]放到 副本.productList 裡面
-      // 4. return整個副本
       const copiedState = Object.assign({}, state);
       copiedState.productList.push(action.payload);
       return copiedState;
-
-      // let currentProductList = deepClone(state);
-      // currentProductList.productList.push(action.payload);
-      // return currentProductList;
     },
-    // 不能放arrow function:
+    // 不能放arrow function: (要用像constructor的寫法那樣)
     // updateList = (state, action) => {...}
+  },
+
+  // saga的非同步處理放這
+  // * -> generator
+  effects: {
+    *updateListAsync({ payload }, { call, put }) {
+      yield put({
+        type: "updateList",
+        payload: payload
+      });
+    },
+
+    // *updateListHttp({payload}, {call, put}){
+    //   // 網路請求
+    //   const result = yield call(api.getProduct.payload);
+    //   const data = result.data;
+    //   if(data){
+    //     yield put({
+    //       type: "updateList",
+    //       payload: data
+    //     })
+    //   }
+
+    // }
   },
 };
 
-//第6集 7:20
-// const deepClone = (arr) => {
-//   let obj = JSON.stringify(arr),
-//     objClone = JSON.parse(obj);
-//   return objClone;
-// };
