@@ -6,6 +6,7 @@ import * as api from "../services/example";
 // << UI component >>
 const Product = ({ productList, dispatch, history }) => {
   const [data, getData] = useState({});
+  const [posts, getPosts] = useState({});
 
   // 呼叫API看看。不需要用fetch語法，直接用example那邊的API
   // ComponentDidMount(){
@@ -15,10 +16,14 @@ const Product = ({ productList, dispatch, history }) => {
   // }
 
   useEffect(() => {
-    console.log("useEffect")
-    console.log("test")
     api.getProduct().then((result) => getData(result.data));
   }, []);
+
+  useEffect(() => {
+    console.log("posts")
+    api.posts().then(result => getPosts(result.data))
+  }, [])
+  // 沒有加[]，且有用到setState，useEffect會被執行多次
 
   // 在這邊定義按鈕要執行的function，可利用dispatch把資訊帶到redux
   const handleAdd = (event) => {
@@ -40,7 +45,7 @@ const Product = ({ productList, dispatch, history }) => {
   };
   return (
     <Card>
-    {data.name}
+    {posts.name}
       <ul>
         {productList.map((item, index) => {
           return <li key={index}>{item.name}</li>;
