@@ -15,6 +15,8 @@ const Product = ({ productList, dispatch, history }) => {
   // }
 
   useEffect(() => {
+    console.log("useEffect")
+    console.log("test")
     api.getProduct().then((result) => getData(result.data));
   }, []);
 
@@ -38,6 +40,7 @@ const Product = ({ productList, dispatch, history }) => {
   };
   return (
     <Card>
+    {data.name}
       <ul>
         {productList.map((item, index) => {
           return <li key={index}>{item.name}</li>;
