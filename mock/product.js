@@ -2,5 +2,5 @@
 
 module.exports = {
   // 數據讀取
-  "GET /api/product": { name: "橄欖油" },
+  "GET /api/product": { "name": "橄欖油" },
 };

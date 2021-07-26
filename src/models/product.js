@@ -34,22 +34,23 @@ export default {
     *updateListAsync({ payload }, { call, put }) {
       yield put({
         type: "updateList",
-        payload: payload
+        payload: payload,
       });
     },
 
     // 真的透過網路請求
     *updateListHttp({ payload }, { call, put }) {
       // 網路請求
-      const result = yield call(api.getProduct.payload);
+      const result = yield call(api.getProduct, payload);
+      // console.log("result", result);
       const data = result.data;
+      // console.log("data", data);
       if (data) {
         yield put({
           type: "updateList",
-          payload: data
-        })
+          payload: data,
+        });
       }
-    }
+    },
   },
 };
-

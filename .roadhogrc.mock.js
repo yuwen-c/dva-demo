@@ -1,15 +1,18 @@
-// export default {
-//   ...require("./mock/product"),
-// };
+export default {
+  ...require("./mock/product"),
+};
 
-import fs from 'fs'; //file system
-import path from 'path';
+// 下面的code 竟然不能用＠＠!!!! ｄｅｂｕｇ好久
 
-const mock = {};
-fs.readdirSync(path.join(__dirname + '/mock')).forEach(function (file){
-  if(file.match(/\.js$/)){
-    Object.assign(mock, require('./mock/' + file))
-  }
-})
+// import fs from 'fs'; //file system
+// import path from 'path';
 
-export default mock;
+// const mock = {};
+// fs.readdirSync(path.join(__dirname + '/mock')).forEach(function (file){
+//   if(file.match(/\.js$/)){
+//     Object.assign(mock, require('./mock/' + file))
+//   }
+// })
+
+// export default mock;
+

@@ -13,8 +13,8 @@ const Product = ({ productList, dispatch, history }) => {
   }, []);
 
   useEffect(() => {
-    api.posts().then(result => getPosts(result.data))
-  }, [])
+    api.posts().then((result) => getPosts(result.data));
+  }, []);
   // 沒有加[]，且有用到setState，useEffect會被執行多次
 
   // 可利用dispatch把資訊帶到redux。直接用reducer的 function
@@ -28,20 +28,20 @@ const Product = ({ productList, dispatch, history }) => {
 
   // 不用reducer的function，而是用effects模擬非同步動作
   const handleAddAsync = (event) => {
-    const pepper = { name: "黑胡椒" }
+    const pepper = { name: "黑胡椒" };
     dispatch({
       type: "product/updateListAsync", // 呼叫的是example裡面的effect的async function
-      payload: pepper
-    })
+      payload: pepper,
+    });
   };
 
   const handleAddHttp = (event) => {
     dispatch({
       type: "product/updateListHttp",
-      payload: { id: "13" }
+      payload: { id: 1001 },
       // payload, 如果接口的地方沒有要求參數，那payload不傳也可以
-    })
-  }
+    });
+  };
 
   // 跳轉方法2和方法3
   const handleBack = (event) => {
@@ -60,13 +60,25 @@ const Product = ({ productList, dispatch, history }) => {
           return <li key={index}>{item.name}</li>;
         })}
       </ul>
-      <Button type="primary" onClick={handleAdd} style={{ marginRight: "10px" }}>
+      <Button
+        type="primary"
+        onClick={handleAdd}
+        style={{ marginRight: "10px" }}
+      >
         reducer add
       </Button>
-      <Button type="primary" onClick={handleAddAsync} style={{ marginRight: "10px" }}>
+      <Button
+        type="primary"
+        onClick={handleAddAsync}
+        style={{ marginRight: "10px" }}
+      >
         effects add
       </Button>
-      <Button type="primary" onClick={handleAddHttp} style={{ marginRight: "10px" }}>
+      <Button
+        type="primary"
+        onClick={handleAddHttp}
+        style={{ marginRight: "10px" }}
+      >
         http add (real async)
       </Button>
       <br />
