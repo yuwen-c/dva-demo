@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Card } from "antd";
 import { withRouter, Link, routerRedux } from "dva/router";
 import * as api from "../services/example";
+import {
+  productUpdateList,
+  productUpdateListAsync,
+  productUpdateListHttp,
+} from "../actions/index";
 
 // << UI component >>
 const Product = ({ productList, dispatch, history }) => {
@@ -20,27 +25,30 @@ const Product = ({ productList, dispatch, history }) => {
   // 可利用dispatch把資訊帶到redux。直接用reducer的 function
   const handleAdd = (event) => {
     const onion = { name: "洋蔥" };
-    dispatch({
-      type: "product/updateList", // 這邊寫"hello"，inspector就會收到hello
-      payload: onion,
-    });
+    // dispatch({
+    //   type: "product/updateList", // 這邊寫"hello"，inspector就會收到hello
+    //   payload: onion,
+    // });
+    dispatch(productUpdateList(onion));
   };
 
   // 不用reducer的function，而是用effects模擬非同步動作
   const handleAddAsync = (event) => {
     const pepper = { name: "黑胡椒" };
-    dispatch({
-      type: "product/updateListAsync", // 呼叫的是example裡面的effect的async function
-      payload: pepper,
-    });
+    // dispatch({
+    //   type: "product/updateListAsync", // 呼叫的是example裡面的effect的async function
+    //   payload: pepper,
+    // });
+    dispatch(productUpdateListAsync(pepper));
   };
 
   const handleAddHttp = (event) => {
-    dispatch({
-      type: "product/updateListHttp",
-      payload: { id: 1001 },
-      // payload, 如果接口的地方沒有要求參數，那payload不傳也可以
-    });
+    // dispatch({
+    //   type: "product/updateListHttp",
+    //   payload: { id: 1001 },
+    //   // payload, 如果接口的地方沒有要求參數，那payload不傳也可以
+    // });
+    dispatch(productUpdateListHttp(1001));
   };
 
   // 跳轉方法2和方法3
