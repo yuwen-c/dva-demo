@@ -30,6 +30,7 @@ export default {
   // saga的非同步處理放這
   // * -> generator
   effects: {
+    // 模擬非同步，但沒有真的通過網路請求(http)
     *updateListAsync({ payload }, { call, put }) {
       yield put({
         type: "updateList",
@@ -37,18 +38,18 @@ export default {
       });
     },
 
-    // *updateListHttp({payload}, {call, put}){
-    //   // 網路請求
-    //   const result = yield call(api.getProduct.payload);
-    //   const data = result.data;
-    //   if(data){
-    //     yield put({
-    //       type: "updateList",
-    //       payload: data
-    //     })
-    //   }
-
-    // }
+    // 真的透過網路請求
+    *updateListHttp({ payload }, { call, put }) {
+      // 網路請求
+      const result = yield call(api.getProduct.payload);
+      const data = result.data;
+      if (data) {
+        yield put({
+          type: "updateList",
+          payload: data
+        })
+      }
+    }
   },
 };
 

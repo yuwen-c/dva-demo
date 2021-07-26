@@ -8,13 +8,6 @@ const Product = ({ productList, dispatch, history }) => {
   const [data, getData] = useState({}); // mock的product with 2 ingredients
   const [posts, getPosts] = useState({}); // mock的posts with mockjs API user data
 
-  // 呼叫API看看。不需要用fetch語法，直接用example那邊的API
-  // ComponentDidMount(){
-  //   api.getProduct()
-  //   .then(response => response.json())
-  //   .then(result => console.log(result))
-  // }
-
   useEffect(() => {
     api.getProduct().then((result) => getData(result.data));
   }, []);
@@ -42,6 +35,14 @@ const Product = ({ productList, dispatch, history }) => {
     })
   };
 
+  const handleAddHttp = (event) => {
+    dispatch({
+      type: "product/updateListHttp",
+      payload: { id: "13" }
+      // payload, 如果接口的地方沒有要求參數，那payload不傳也可以
+    })
+  }
+
   // 跳轉方法2和方法3
   const handleBack = (event) => {
     console.log("back", history);
@@ -62,8 +63,11 @@ const Product = ({ productList, dispatch, history }) => {
       <Button type="primary" onClick={handleAdd} style={{ marginRight: "10px" }}>
         reducer add
       </Button>
-      <Button type="primary" onClick={handleAddAsync}>
+      <Button type="primary" onClick={handleAddAsync} style={{ marginRight: "10px" }}>
         effects add
+      </Button>
+      <Button type="primary" onClick={handleAddHttp} style={{ marginRight: "10px" }}>
+        http add (real async)
       </Button>
       <br />
       {/* 跳轉方法1，用dva/router裡面的Link */}
