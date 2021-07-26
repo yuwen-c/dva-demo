@@ -16,8 +16,10 @@ const app = dva({
 // app.use({});
 
 // 3. Model
-app.model(require("./models/example").default);
-app.model(require("./models/product").default);
+// app.model(require("./models/example").default);
+// app.model(require("./models/product").default);
+// 在model> index.js裡面一次全部引入
+require("./models").default.forEach((key) => app.model(key.default));
 
 // 4. Router
 app.router(require("./router").default);

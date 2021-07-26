@@ -53,4 +53,14 @@ export default {
       }
     },
   },
+
+  // 監聽
+  subscriptions: {
+    setup({ dispatch, history }) {
+      console.log("dispatch", dispatch);
+    },
+    hello({ dispatch, history }) {
+      console.log("無論叫什麼名字都可以");
+    },
+  },
 };

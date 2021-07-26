@@ -6,10 +6,10 @@ export function query() {
   return request("/api/users");
 }
 
-export function getProduct() {
+export function getProduct(params) {
   return request("/api/product");
 }
 
-export function posts(){
+export function posts() {
   return request("/api/posts");
 }
